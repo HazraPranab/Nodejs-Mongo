@@ -1,0 +1,2 @@
+My first log in Node.js 
+Appended log for Mon Sep 13 2021 19:55:10 GMT+0530 
