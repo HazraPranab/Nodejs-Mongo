@@ -8,24 +8,24 @@ MongoClient.connect('mongodb://127.0.0.1:27017', function (err, client) {
 
 //#region Insert 
 
-  db.collection('mamals').insertMany(
+  // db.collection('mamals').insertMany(
     
-     [{
-          Name : 'Snake',
-          Address : 'Forest',
-          timeStamp: new Date()
-      },
-      {
-        Name : 'Monkey',
-        Address : 'Forest',
-        timeStamp: new Date()
-    }]
-      ,(err,result) => {
-          if(err) {return console.log('Error')}
-          else
-            return console.log('Inserted Successfuly');
-      }
-  )
+  //    [{
+  //         Name : 'Snake',
+  //         Address : 'Forest',
+  //         timeStamp: new Date()
+  //     },
+  //     {
+  //       Name : 'Monkey',
+  //       Address : 'Forest',
+  //       timeStamp: new Date()
+  //   }]
+  //     ,(err,result) => {
+  //         if(err) {return console.log('Error')}
+  //         else
+  //           return console.log('Inserted Successfuly');
+  //     }
+  // )
  //#endregion
  //#region Find
     // db.collection('mamals').find().toArray((err,doc) =>
