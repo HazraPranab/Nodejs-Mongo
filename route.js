@@ -46,9 +46,56 @@ app.post('/saveUsers', (req, res)=>{
             }).catch(err => {
                 res.send(`Some error occureed ${err}`);
             });
+});
+
+//Patch Users
+
+app.patch('/updateUser/:id', (req,res)=>
+{
+    const id= req.params.id;
+    let frstname= req.body.firstname;
+    User.findOneAndUpdate({_id: id}, {$set: {firstname:frstname}}, {new: true})
+    .then(savedUser=> {
+        res.send("User Updated Successfully !!");
+    }).catch(err => {
+                res.send(`Some error occureed ${err}`);
+    });
+});
+
+//Put Users
+app.put('/updateUser', (req,res)=>
+{
+    let id= req.body._id;
+    let frstName= req.body.firstname;
+    let lstName= req.body.lastname;
+
+    User.findOne({_id: id}).then(user=>
+    {
+       user.firstname = frstName;
+       user.lastname = lstName;
+
+       user.save().then(userSaved=> {
+           res.send('User Updated successfully!!')
+       });
+    }).catch(err => {
+            res.send(`Some error occureed ${err}`);
+    });
 })
 
+//Delete User
+app.delete('/deleteUser/:id', (req,res)=>
+{
+    const id= req.params.id;
+    
+    User.findOneAndRemove({_id: id})
+    .then(savedRemoved=> {
+        res.send("User Deleted Successfully !!");
+    }).catch(err => {
+        res.send(`Some error occureed ${err}`);
+    });
+});
+
 app.listen(4444, ()=>
-'Listening to porrt 4444'
+'Listening to port 4444'
 );
 
