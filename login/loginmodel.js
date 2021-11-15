@@ -22,6 +22,12 @@ const LoginUserSchema= new Schema(
         type: String,
         minlength: 6,
         required: true
+    },
+    Role:
+    {
+        type: String,
+        minlength: 1,
+        required: true
     }
     
 });

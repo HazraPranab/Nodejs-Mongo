@@ -4,6 +4,7 @@ const mongoose= require('mongoose');
 const LoginUser = require('./loginmodel');
 const bodyParser= require('body-parser');
 const bcrypt= require('bcrypt');
+const jwt = require('jsonwebtoken');
 
 
 app.use(bodyParser.json());
@@ -42,7 +43,16 @@ app.post('/register', (req, res)=>
                 if(err)
                     return err;
                 if(matched)
-                    res.send("Login Successfull !!");
+                {
+                    const token= jwt.sign({email: req.body.email, role: user.Role},'secret', {expiresIn: "1h"});
+                    //user.token= token 
+                    let obj = {
+                        message:'Login Successfull !!',
+                        token: token
+                    }
+                    res.status(200).json(obj);
+                    //res.status(200).json(user);
+                }
                 else    
                     res.send("Passsword is Incorrect !!");
 
@@ -53,6 +63,27 @@ app.post('/register', (req, res)=>
         }
     }).catch(err=> `Some Error Occured ${err}`);
  })
+
+ app.get('/view', (req,res)=>
+ {
+     const token=req.headers["authorization"];
+     //console.log(token);
+     try{
+        if(token)
+        {
+            const bearer= token.split(' ');
+            const decoded= jwt.verify(bearer[1], 'secret');
+            res.status(200).json(decoded);
+        }
+        else
+        {
+            res.status(401).send("Invalid Token");
+        }
+    }
+    catch(err) { res.status(403).send(err)};
+     
+ });
+
 
 app.listen('4441', ()=>
 {
