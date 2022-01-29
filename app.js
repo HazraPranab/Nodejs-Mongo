@@ -1,10 +1,17 @@
 const {MongoClient,ObjectId} = require('mongodb')
+const express= require('express');
+const app= express();
+const applogin= require('./login/applogin');
+const route= require('./route');
 
-MongoClient.connect('mongodb://127.0.0.1:27017', function (err, client) {
-  if (err) throw err
-  console.log('CONNECTED');
+app.use(applogin); //using for login
+app.use(route); //using for datafetch
 
-  var db= client.db('animals');
+// MongoClient.connect('mongodb://127.0.0.1:27017', function (err, client) {
+//   if (err) throw err
+//   console.log('CONNECTED');
+
+//   var db= client.db('animals');
 
 //#region Insert 
 
@@ -64,4 +71,4 @@ MongoClient.connect('mongodb://127.0.0.1:27017', function (err, client) {
 
 //#endregion
 
-})
+//})

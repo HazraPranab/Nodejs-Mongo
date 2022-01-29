@@ -99,3 +99,4 @@ app.listen(4444, ()=>
 'Listening to port 4444'
 );
 
+module.exports= app;
